@@ -1,0 +1,1122 @@
+/* ==================================================
+   AURALIS HEALTHCARE CLINICIAN PORTAL
+   Clinical-Grade Telemetry & Multi-Bed Fleet System
+   ================================================== */
+
+:root {
+  --portal-bg: #070D18;
+  --portal-card-bg: #0F172A;
+  --portal-card-darker: #090E1A;
+  --portal-border: #1E293B;
+  --portal-border-hover: #334155;
+
+  --teal-primary: #14B8A6;
+  --teal-glow: rgba(20, 184, 166, 0.4);
+  --blue-primary: #0284C7;
+  --blue-sky: #38BDF8;
+  
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+
+  --status-green: #10B981;
+  --status-amber: #F59E0B;
+  --status-red: #EF4444;
+
+  --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', var(--font-sans);
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.portal-body {
+  font-family: var(--font-sans);
+  background-color: var(--portal-bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==================================================
+   1. AUTHENTICATION MODAL GATE
+   ================================================== */
+.auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at 50% 30%, #0F172A 0%, #030712 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.auth-card {
+  background: #0B1222;
+  border: 1px solid #1E293B;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 540px;
+  padding: 36px 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 30px rgba(14, 165, 233, 0.15);
+}
+
+.auth-logo-badge {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.auth-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.auth-subtitle {
+  font-size: 0.85rem;
+  color: var(--blue-sky);
+  display: block;
+  margin-top: 2px;
+}
+
+.auth-demo-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  background: rgba(14, 165, 233, 0.15);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  color: var(--blue-sky);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  margin: 12px 0 24px 0;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.profile-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #0F1A2E;
+  border: 1px solid #1E293B;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.profile-card:hover {
+  background: #16243E;
+  border-color: #334155;
+}
+
+.profile-card.active {
+  background: rgba(20, 184, 166, 0.12);
+  border-color: var(--teal-primary);
+  box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+}
+
+.profile-avatar {
+  font-size: 1.5rem;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info strong {
+  display: block;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.profile-info span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.profile-check {
+  color: var(--teal-primary);
+  font-weight: 800;
+  font-size: 1.1rem;
+  opacity: 0;
+}
+
+.profile-card.active .profile-check {
+  opacity: 1;
+}
+
+.auth-pin-group {
+  margin-bottom: 22px;
+}
+
+.auth-pin-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.pin-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pin-input-wrap input {
+  background: #060B14;
+  border: 1px solid #1E293B;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  color: var(--blue-sky);
+  width: 140px;
+  text-align: center;
+}
+
+.pin-note {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue-primary), var(--teal-primary));
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.btn-auth-login {
+  width: 100%;
+  padding: 14px;
+  font-size: 0.95rem;
+  margin-bottom: 18px;
+}
+
+.auth-disclaimer {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.auth-public-link {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.auth-public-link a {
+  color: var(--blue-sky);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ==================================================
+   2. MAIN PORTAL APP LAYOUT
+   ================================================== */
+.portal-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Top Navigation */
+.portal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0A101D;
+  border-bottom: 1px solid var(--portal-border);
+  padding: 12px 28px;
+  gap: 20px;
+}
+
+.portal-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.portal-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.p-title strong {
+  color: var(--teal-primary);
+}
+
+.p-sub {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+}
+
+.ward-selector-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #0F172A;
+  border: 1px solid var(--portal-border);
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.ward-selector-group label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.ward-selector-group select {
+  background: transparent;
+  border: none;
+  color: var(--blue-sky);
+  font-size: 0.8rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+}
+
+.portal-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.telemetry-sync-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--teal-primary);
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.3);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.sync-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal-primary);
+  box-shadow: 0 0 8px var(--teal-primary);
+  animation: pulse-sync 2s infinite;
+}
+
+@keyframes pulse-sync {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #0F172A;
+  border: 1px solid var(--portal-border);
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.user-avatar {
+  font-size: 1.1rem;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-details strong {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.user-details span {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.portal-external-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-link-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--blue-sky);
+  background: rgba(2, 132, 199, 0.15);
+  border: 1px solid rgba(2, 132, 199, 0.3);
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-link-pill:hover {
+  background: var(--blue-primary);
+  color: #FFFFFF;
+}
+
+.btn-logout {
+  background: none;
+  border: 1px solid var(--portal-border);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+  background: #1E293B;
+  color: var(--text-primary);
+}
+
+/* Architecture Top Banner */
+.portal-top-banner {
+  background: #080D1A;
+  border-bottom: 1px solid var(--portal-border);
+  padding: 8px 28px;
+}
+
+.banner-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.arch-flow-compact {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arch-flow-compact strong {
+  color: var(--text-secondary);
+}
+
+.arch-flow-compact .active-node {
+  color: var(--teal-primary);
+  font-weight: 700;
+}
+
+.banner-disclaimer {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ==================================================
+   3. MAIN WORKSPACE CONTENT
+   ================================================== */
+.portal-main-content {
+  flex: 1;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Stats Row */
+.portal-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.p-stat-card {
+  background: var(--portal-card-bg);
+  border: 1px solid var(--portal-border);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.stat-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.stat-number {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.stat-number small {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.stat-teal { color: var(--teal-primary); }
+.stat-blue { color: var(--blue-sky); }
+.stat-green { color: var(--status-green); }
+
+.stat-detail {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 4px;
+}
+
+/* Workspace Grid (Fleet List + Deep Dive) */
+.portal-workspace-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 20px;
+}
+
+/* Fleet List */
+.fleet-list-col {
+  background: var(--portal-card-bg);
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 270px);
+}
+
+.fleet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--portal-border);
+  padding-bottom: 10px;
+}
+
+.fleet-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.fleet-count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  background: rgba(2, 132, 199, 0.2);
+  color: var(--blue-sky);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.fleet-device-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.f-card {
+  background: #080D1A;
+  border: 1px solid var(--portal-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.f-card:hover {
+  background: #111A2E;
+  border-color: #334155;
+}
+
+.f-card.active-selection {
+  background: #112238;
+  border-color: var(--teal-primary);
+  box-shadow: 0 0 15px rgba(20, 184, 166, 0.15);
+}
+
+.f-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.f-id {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--blue-sky);
+}
+
+.f-status-pill {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.f-status-running {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+}
+
+.f-status-standby {
+  background: rgba(148, 163, 184, 0.2);
+  color: var(--text-secondary);
+}
+
+.f-bed {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.f-patient-anon {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.f-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  border-top: 1px solid #162033;
+  padding-top: 8px;
+}
+
+.f-telemetry-grid small {
+  display: block;
+  font-size: 0.58rem;
+  color: var(--text-muted);
+}
+
+.f-telemetry-grid strong {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+/* Right Column: Telemetry Monitor */
+.telemetry-monitor-col {
+  background: var(--portal-card-bg);
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.monitor-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--portal-border);
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.device-tag-large {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--teal-primary);
+}
+
+.active-bed-header h2 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin: 2px 0;
+}
+
+.selected-clinical-indication {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.monitor-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-sm {
+  font-size: 0.78rem;
+  padding: 7px 14px;
+}
+
+.btn-outline {
+  background: #080D1A;
+  border: 1px solid var(--portal-border);
+  color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+  background: #1E293B;
+  color: var(--text-primary);
+}
+
+.btn-outline-teal {
+  background: rgba(20, 184, 166, 0.1);
+  border: 1px solid rgba(20, 184, 166, 0.4);
+  color: var(--teal-primary);
+}
+
+.btn-outline-teal:hover {
+  background: var(--teal-primary);
+  color: #FFFFFF;
+}
+
+/* Primary Telemetry Grid */
+.telemetry-primary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.pressure-gauge-card,
+.canister-gauge-card {
+  background: var(--portal-card-darker);
+  border: 1px solid var(--portal-border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.gauge-caption {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.gauge-large-value {
+  font-family: var(--font-mono);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--blue-sky);
+  line-height: 1;
+}
+
+.gauge-large-value small {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.gauge-target-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 10px 0 16px 0;
+}
+
+.seal-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.seal-good {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+}
+
+.seal-alert {
+  background: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+  animation: pulse-sync 1s infinite;
+}
+
+/* 3 Selectable Pressure Levels */
+.portal-pressure-levels {
+  border-top: 1px solid var(--portal-border);
+  padding-top: 12px;
+}
+
+.levels-title {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.levels-btn-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.portal-p-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #0F172A;
+  border: 1px solid var(--portal-border);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.portal-p-btn:hover {
+  border-color: #334155;
+  color: var(--text-primary);
+}
+
+.portal-p-btn.active-level {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: var(--teal-primary);
+  color: #FFFFFF;
+}
+
+.p-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #1E293B;
+  border: 1px solid #334155;
+}
+
+.p-dot.active-glow {
+  background: var(--teal-primary);
+  border-color: #5EEAD4;
+  box-shadow: 0 0 10px var(--teal-primary), 0 0 20px var(--teal-glow);
+}
+
+/* Canister Fluid Gauge */
+.canister-progress-box {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin: 12px 0 16px 0;
+}
+
+.canister-tank-portal {
+  width: 70px;
+  height: 80px;
+  background: #060B14;
+  border: 1px solid var(--portal-border);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.canister-fluid-portal {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(20, 184, 166, 0.5) 0%, rgba(13, 148, 136, 0.8) 100%);
+  border-top: 2px solid #2DD4BF;
+  transition: height 0.5s ease;
+}
+
+.tank-marks {
+  position: absolute;
+  right: 4px;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.canister-data-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.c-data-item small {
+  display: block;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+}
+
+.c-data-item strong {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+}
+
+.c-pct {
+  font-size: 0.72rem;
+  color: var(--teal-primary);
+}
+
+.text-teal {
+  color: var(--teal-primary);
+}
+
+.battery-status-strip {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--portal-border);
+  padding-top: 10px;
+}
+
+/* Waveform Box */
+.waveform-box {
+  background: var(--portal-card-darker);
+  border: 1px solid var(--portal-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.waveform-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.waveform-status-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--blue-sky);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue-sky);
+  animation: pulse-sync 1.5s infinite;
+}
+
+.canvas-container-portal {
+  width: 100%;
+  height: 190px;
+}
+
+#portalCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Clinician Notes & Compliance */
+.clinical-actions-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 18px;
+}
+
+.clinical-notes-card,
+.compliance-metrics-card {
+  background: var(--portal-card-darker);
+  border: 1px solid var(--portal-border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.notes-header h4,
+.compliance-metrics-card h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.note-auto-saved {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--teal-primary);
+}
+
+.clinical-notes-card textarea {
+  width: 100%;
+  background: #060B14;
+  border: 1px solid var(--portal-border);
+  border-radius: 8px;
+  padding: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+.clinical-notes-card textarea:focus {
+  outline: none;
+  border-color: var(--teal-primary);
+}
+
+.notes-action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.compliance-stat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.c-stat-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  border-bottom: 1px dashed var(--portal-border);
+  padding-bottom: 6px;
+}
+
+.c-stat-row strong {
+  color: var(--text-primary);
+}
+
+/* Footer */
+.portal-footer {
+  background: #050811;
+  border-top: 1px solid var(--portal-border);
+  padding: 14px 28px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .portal-workspace-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .portal-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .portal-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .portal-nav-right {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .telemetry-primary-grid,
+  .clinical-actions-grid {
+    grid-template-columns: 1fr;
+  }
+}

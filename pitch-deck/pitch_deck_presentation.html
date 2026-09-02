@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auralis Med Tech | SAFE VAC Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284C7;
+      --primary-dark: #0369A1;
+      --teal: #0D9488;
+      --dark: #0F172A;
+      --card-bg: #FFFFFF;
+      --bg: #F8FAFC;
+      --text: #1E293B;
+      --muted: #64748B;
+      --border: #E2E8F0;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0B1120;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .deck-header {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      color: #94A3B8;
+      font-size: 14px;
+    }
+    .slide-viewport {
+      width: 100%;
+      max-width: 1000px;
+      aspect-ratio: 16 / 9;
+      background: #FFFFFF;
+      border-radius: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .slide {
+      display: none;
+      height: 100%;
+      padding: 44px 50px;
+      flex-direction: column;
+      justify-content: space-between;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .slide-tag {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      color: var(--dark);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .card h4 {
+      font-size: 16px;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .card p, .card li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .highlight-card {
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      border-color: #BAE6FD;
+    }
+    .highlight-card h4 { color: var(--primary-dark); }
+    .table-clean {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .table-clean th, .table-clean td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .table-clean th {
+      background: var(--bg);
+      color: var(--dark);
+      font-weight: 700;
+    }
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      margin-top: 10px;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .btn-ctrl {
+      background: #1E293B;
+      color: #FFFFFF;
+      border: 1px solid #334155;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .btn-ctrl:hover {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    @media print {
+      body { background: transparent; padding: 0; }
+      .deck-header, .controls { display: none; }
+      .slide-viewport { max-width: 100%; aspect-ratio: auto; box-shadow: none; }
+      .slide { display: flex !important; page-break-after: always; height: 100vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="deck-header">
+    <strong>Auralis Med Tech • SAFE VAC Pitch Deck</strong>
+    <span id="slideCounter">Slide 1 of 12</span>
+  </div>
+
+  <div class="slide-viewport">
+    <!-- Slide 1 -->
+    <div class="slide active">
+      <div>
+        <div class="slide-tag">Executive Summary</div>
+        <h2>Auralis Med Tech – Democratizing Advanced Wound Care</h2>
+        <p class="subtitle">Bridging the accessibility gap in Negative Pressure Wound Therapy through affordable, compact medical technology.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card highlight-card">
+            <h4>💡 High Affordability</h4>
+            <p>Dramatically lowers capital cost barriers, enabling small clinics and regional hospitals to adopt NPWT standard of care.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>📦 Compact & Portable</h4>
+            <p>Under 1.5 kg lightweight architecture engineered for versatile bedside deployment and intra-hospital transport.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>🩺 Clinical Usability</h4>
+            <p>Intuitive digital interface designed for rapid nurse and doctor onboarding with dependable safety features.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Auralis Med Tech Pvt. Ltd.</span>
+        <span>Confidential • Investor Presentation</span>
+      </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">The Problem</div>
+        <h2>Wound Care is Trapped Behind Cost & Complexity</h2>
+        <p class="subtitle">Millions of patients suffer from chronic wounds without access to modern therapeutic interventions.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card" style="border-left: 4px solid #EF4444;">
+            <h4>Prohibitive Capital Cost</h4>
+            <p>Incumbent NPWT machines cost thousands of dollars, pricing out secondary hospitals and nursing homes.</p>
+          </div>
+          <div class="card" style="border-left: 4px solid #EF4444;">
+            <h4>Bulky & Inflexible</h4>
+            <p>Heavy consoles confined to metro ICUs cause logistical bottlenecks and nursing fatigue.</p>
+          </div>
+          <div class="card" style="border-left: 4px solid #EF4444;">
+            <h4>Avoidable Complications</h4>
+            <p>Reliance on basic dressings causes delayed healing, high infection rates, and elevated amputation risks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Problem Identification</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Our Solution</div>
+        <h2>SAFE VAC: Precision NPWT for Every Clinic</h2>
+        <p class="subtitle">Clinical-grade negative pressure wound therapy in a compact, intuitive footprint.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card highlight-card">
+            <h4>Therapeutic Reliability</h4>
+            <p>Precise continuous and intermittent pressure regulation within clinical standards to maximize granulation and exudate removal.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>Exudate Management</h4>
+            <p>Robust canister system with integrated hydrophobic filters and leak-prevention mechanisms.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>Universal Compatibility</h4>
+            <p>Seamlessly integrates with standard medical dressing kits without expensive proprietary lock-in.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>Locally Supported</h4>
+            <p>Indigenous manufacturing allows rapid servicing turnaround and dependable supply chain access.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Product: SAFE VAC</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Target Customers</div>
+        <h2>Serving the Entire Healthcare Spectrum</h2>
+        <p class="subtitle">Focused on high-volume, underserved tiers of clinical delivery.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>🏥 Tier-2 & Tier-3 Regional Hospitals</h4>
+            <p>30–150 bed facilities seeking affordable CapEx equipment to expand advanced surgical services.</p>
+          </div>
+          <div class="card">
+            <h4>🦶 Diabetic Foot & Wound Clinics</h4>
+            <p>Specialized podiatry and surgery practices needing dedicated, outpatient-friendly NPWT devices.</p>
+          </div>
+          <div class="card">
+            <h4>🏛️ Government & District Centers</h4>
+            <p>Public healthcare facilities requiring rugged, cost-effective devices with accessible spare parts.</p>
+          </div>
+          <div class="card">
+            <h4>🩹 Tertiary Surgical Wards</h4>
+            <p>Metro hospitals requiring low-cost auxiliary fleets during peak patient inflow.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Market Segmentation</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Market Opportunity</div>
+        <h2>$2.8B+ Global Market Driven by Chronic Care Demand</h2>
+        <p class="subtitle">Rising diabetes prevalence and hospital decentralization fuel surging demand.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>TAM: $2.8B+</h4>
+            <p>Global NPWT and advanced wound care market compounding at 6–8% CAGR.</p>
+          </div>
+          <div class="card">
+            <h4>SAM: $650M+</h4>
+            <p>Emerging economies and decentralized hospital segments in targeted regions.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>SOM: $40M–$60M</h4>
+            <p>Initial 3–5 year strategic addressable target across partner hospital networks.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Market Opportunity</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Competitive Advantage</div>
+        <h2>Distinct Superiority in Value & Portability</h2>
+      </div>
+      <div class="slide-body">
+        <table class="table-clean">
+          <tr>
+            <th>Parameter</th>
+            <th>Legacy MNC Systems</th>
+            <th>Disposable Single-Use</th>
+            <th style="color:var(--primary); font-weight:700;">SAFE VAC</th>
+          </tr>
+          <tr>
+            <td>Capital Cost</td>
+            <td>Prohibitive ($3k–$8k+)</td>
+            <td>Moderate per patch</td>
+            <td><strong>Highly Affordable</strong></td>
+          </tr>
+          <tr>
+            <td>Weight / Portability</td>
+            <td>Heavy (> 3.5 kg)</td>
+            <td>Small (Low exudate cap)</td>
+            <td><strong>Bedside Compact (< 1.5 kg)</strong></td>
+          </tr>
+          <tr>
+            <td>Exudate Volume</td>
+            <td>Large</td>
+            <td>Very Low (Pad only)</td>
+            <td><strong>Optimized Clinical Canister</strong></td>
+          </tr>
+          <tr>
+            <td>Service Support</td>
+            <td>Slow & Expensive</td>
+            <td>None (Discard)</td>
+            <td><strong>Direct Local Support</strong></td>
+          </tr>
+        </table>
+      </div>
+      <div class="slide-footer">
+        <span>Competitive Positioning</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Business & Revenue Model</div>
+        <h2>High-Margin Recurring Consumables Engine</h2>
+        <p class="subtitle">Hardware placement paired with steady consumable demand.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>1. Hardware Placements</h4>
+            <p>• Direct Device Sales to hospitals and private surgical centers.<br>• Flexible hospital rental & pay-per-use agreements.<br>• Government & institutional tenders.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>2. Recurring Consumables</h4>
+            <p>• Dedicated exudate canisters & filter assemblies.<br>• Specialized tubing and drainage connection kits.<br>• Generates steady, high-margin multi-year revenue.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Business Model</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Validation & Progress</div>
+        <h2>Proven Engineering & Practitioner Feedback</h2>
+        <p class="subtitle">De-risking the product through bench testing and surgeon reviews.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <h4>Engineering Prototypes</h4>
+            <p>Bench testing confirmed steady pressure regulation, leak tolerance, and fluid isolation under clinical simulations.</p>
+          </div>
+          <div class="card">
+            <h4>Doctor & Surgeon Reviews</h4>
+            <p>Validated by general and plastic surgeons for ergonomic handling and simplified clinical workflow.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Milestones</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Future Growth</div>
+        <h2>Strategic Roadmap: Hospital to Home Care</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>Near-Term (0–18 Mo)</h4>
+            <p>Regulatory certification, regional pilot hospital rollouts, and distributor network setup.</p>
+          </div>
+          <div class="card">
+            <h4>Mid-Term (18–36 Mo)</h4>
+            <p>Next-Gen IoT connected SAFE VAC for remote monitoring and home wound care protocols.</p>
+          </div>
+          <div class="card">
+            <h4>Long-Term (36+ Mo)</h4>
+            <p>Wearable ultra-portable units and expansion across South/Southeast Asian markets.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Roadmap</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Vision & Mission</div>
+        <h2>Restoring Healing Equity Across Healthcare</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card highlight-card">
+            <h4>Our Vision</h4>
+            <p>To become a globally trusted pioneer in accessible medical technologies, ensuring no patient is deprived of standard-of-care healing due to financial barriers.</p>
+          </div>
+          <div class="card highlight-card">
+            <h4>Our Mission</h4>
+            <p>To engineer robust, affordable medical devices that empower clinicians, shorten wound recovery, prevent amputations, and improve lives.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Core Values</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Leadership Team</div>
+        <h2>Driven by Engineering & Clinical Insight</h2>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card">
+            <h4>CEO & Strategy</h4>
+            <p><strong>[Founder Name]</strong><br>Biomedical Innovation & Startup Strategy Lead.</p>
+          </div>
+          <div class="card">
+            <h4>CTO & Engineering</h4>
+            <p><strong>[Co-Founder Name]</strong><br>Hardware Systems & DFM Lead.</p>
+          </div>
+          <div class="card">
+            <h4>Clinical Advisory</h4>
+            <p><strong>Senior Surgical Advisory</strong><br>Plastic, General & Diabetology Consultants.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Team</span>
+        <span>Auralis Med Tech</span>
+      </div>
+    </div>
+
+    <!-- Slide 12 -->
+    <div class="slide">
+      <div>
+        <div class="slide-tag">Investment Opportunity</div>
+        <h2>Join Us in Transforming Global Wound Care</h2>
+        <p class="subtitle">Accelerate regulatory approvals, tooling, and commercial pilot deployment.</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card highlight-card">
+            <h4>Use of Funds</h4>
+            <p>• <strong>40%</strong> Regulatory Testing, EMC/Safety & QA<br>• <strong>30%</strong> Tooling & Pilot Batch Production<br>• <strong>20%</strong> Clinical Pilot Deployments & KOLs<br>• <strong>10%</strong> IP Protection & Operations</p>
+          </div>
+          <div class="card">
+            <h4>Contact Details</h4>
+            <p><strong>Auralis Med Tech Private Limited</strong><br>Email: <a href="mailto:contact@auralismedtech.com">contact@auralismedtech.com</a><br>Web: www.auralismedtech.com<br>Location: MedTech Innovation Center</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Call to Action</span>
+        <span>Thank You</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn-ctrl" onclick="prevSlide()">◀ Previous</button>
+    <button class="btn-ctrl" onclick="nextSlide()">Next ▶</button>
+    <button class="btn-ctrl" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slideCounter');
+
+    function updateSlide() {
+      slides.forEach((s, idx) => s.classList.toggle('active', idx === currentSlide));
+      counter.textContent = `Slide ${currentSlide + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>
