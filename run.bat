@@ -1,7 +1,8 @@
 @echo off
-title Auralis Med Tech - Dual Server Launcher
+title Auralis Med Tech - SAFE VAC Server
 echo ========================================================
-echo Starting Auralis Med Tech Multi-Port Web Server...
+echo  Starting Auralis Med Tech Local Server (Port 8000)...
+echo  Opening: http://localhost:8000
 echo ========================================================
 echo.
 cd /d "%~dp0"
